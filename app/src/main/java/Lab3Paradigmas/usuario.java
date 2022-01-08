@@ -9,6 +9,7 @@ public class usuario {
     private int userID;
     private static int ContadorID = 0;
     
+    
     usuario(String username, String password){
         this.username = username;
         this.password = password;

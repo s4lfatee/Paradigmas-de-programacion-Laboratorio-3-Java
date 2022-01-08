@@ -9,6 +9,7 @@ public class paradigmaDocs {
     private LocalDate fechaplataforma;
     private ArrayList<usuario> listausers = new ArrayList<>();
     private ArrayList<documento> listadocumentos = new ArrayList<>();
+    private String usuariologueado;
     
     public paradigmaDocs(String nombreplataforma){
         this.nombreplataforma = nombreplataforma;
@@ -29,6 +30,40 @@ public class paradigmaDocs {
     
     public ArrayList getlistadocumentos(){
         return this.listadocumentos;
+    }
+    
+    public String getusuariologueado(){
+        return this.usuariologueado;
+    }
+    
+    public void setusuariologueado(String username){
+        this.usuariologueado = username;
+    }
+    
+    public boolean registrarusuario(String username, String password){
+        if (this.listausers.isEmpty()){
+            this.listausers.add(new usuario(username, password));
+            return true;
+        }
+        else{
+            for (int i = 0; i < this.listausers.size(); i++){
+                if (this.listausers.get(i).getusername().equals(username))
+                    return false;
+            }
+            this.listausers.add(new usuario(username, password));
+            return true;
+        }
+    }
+    
+    public boolean autenticarusuario(String username, String password){
+        for (int i = 0; i < this.listausers.size(); i++){
+            if (this.listausers.get(i).getusername().equals(username) && 
+                    this.listausers.get(i).getpassword().equals(password)){
+                this.setusuariologueado(username);
+                return true;
+            }
+        }
+        return false;
     }
     
     public String ToString(){

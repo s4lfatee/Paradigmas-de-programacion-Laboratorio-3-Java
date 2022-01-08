@@ -9,6 +9,7 @@ public class documento {
     private String contenido = "";
     private static int ContadorIDdoc = 0; 
     private int DocId;
+    private LocalDate fechamodificacion;
     private ArrayList<version> listaversiones = new ArrayList<>();
     private ArrayList<acceso> listacceso = new ArrayList<>();
     
