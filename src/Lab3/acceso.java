@@ -1,4 +1,4 @@
-package Lab3Paradigmas;
+package Lab3;
 
 public class acceso {
     private String username;

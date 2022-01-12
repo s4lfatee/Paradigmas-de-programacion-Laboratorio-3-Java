@@ -1,5 +1,5 @@
 @echo off
 
 del *.class
-javac Lab3Paradigmas/*.java
-java Lab3Paradigmas/Main
+javac Lab3/*.java
+java Lab3/Main
