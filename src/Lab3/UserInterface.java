@@ -49,7 +49,26 @@ public class UserInterface {
                         inputstring.next();
                         break;
                     case 3:
-                        System.out.print("FUNCIONA!!!!!!!!!!!!!!!!!!!!!\n");
+                        System.out.print("Agregar contenido a un documento\n");
+                        System.out.print("Ingresar el id del documento a modificar: ");
+                        idDoc = input.nextInt();
+                        System.out.print("\nIngresar el texto a agregar: ");
+                        contenido = inputstring.next();
+                        if(plataforma.add(idDoc, contenido)){
+                            System.out.print("Contenido agregado con exito");
+                        }
+                        System.out.print("Presione ENTER para continuar\n");
+                        inputstring.next();
+                        break;
+                    case 4:
+                        System.out.print("Restaurar versión de un documento\n");
+                        System.out.print("Ingresar el id del documento: ");
+                        idDoc = input.nextInt();
+                        System.out.print("\nIngresar el id de la version a restaurar: ");
+                        int IdVer = input.nextInt();
+                        if(plataforma.rollback(idDoc, IdVer)){
+                            System.out.print("Version restaurada con exito");
+                        }
                         System.out.print("Presione ENTER para continuar\n");
                         inputstring.next();
                         break;
@@ -119,6 +138,8 @@ public class UserInterface {
         System.out.print("1. Crear nuevo documento\n");
         System.out.print("2. Compartir documento\n");
         System.out.print("3. Agregar contenido a un documento\n");
+        System.out.print("4. Restaurar versión de un documento\n");
+        System.out.print("5. Revocar acceso a un documento\n");
         System.out.print("10. Cerrar sesion\n");
         System.out.print("0. Cerrar programa\n");
         System.out.print("INTRODUZCA SU OPCION: ");

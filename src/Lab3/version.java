@@ -7,13 +7,11 @@ public class version {
     private int idversion;
     private String contenido;
     private LocalDate fechaversion;
-    private static int ContadorID = 0;
     
     public version(String contenido, int idversion){
-        this.idversion = ContadorID++;
+        this.idversion = idversion;
         this.contenido = contenido;
         this.fechaversion = LocalDate.now();
-
     }
     
     public String getcontenido(){

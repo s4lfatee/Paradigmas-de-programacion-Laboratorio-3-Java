@@ -1,5 +1,6 @@
 package Lab3;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,7 +30,7 @@ public class paradigmaDocs {
         this.listadocumentos.add(new documento("este documento no pertenece a fco", "adios fco", "lmao"));
         this.listadocumentos.add(new documento("la verdad es que", "rellenar estos documentos no es muy divertido", "lmao"));
         this.listadocumentos.add(new documento("pero tengo que hacerlo", "porque es requerido", "lmao"));
-        this.listadocumentos.add(new documento("kajkakaj", "contenido generico", "genericuser"));
+        this.listadocumentos.add(new documento("kajkakaj", "minecraft fue desarrollado en java", "genericuser"));
         this.listadocumentos.add(new documento("falta poco", "El lenguaje de programación Java fue desarrollado originalmente por James Gosling", "useer"));
         this.listadocumentos.add(new documento("casi", "me gusta mucho jugar yugioh", "quintouser"));
     }
@@ -114,7 +115,6 @@ public class paradigmaDocs {
         if(!(this.usuariologueado.equals(Doc.getOwnerdocumento()) || Doc.verificaracceso(this.usuariologueado, "W"))){
             System.out.print("No eres propietario del documento o no posees los permisos necesarios para compartir este documento\n");
             return false;
-
         }
 
         if(!this.gepermisosvalidos().contains(permiso)){
@@ -154,6 +154,48 @@ public class paradigmaDocs {
         }
 
         Doc.setListacceso(accesosdoc);
+        this.listadocumentos.set(IdDoc, Doc);
+        return true;
+    }
+
+    public boolean add(int IdDoc, String texto){
+        if(IdDoc > this.getlistadocumentos().size() - 1){
+            System.out.print("No existe el documento especificado\n");
+            return false;
+        }
+
+        documento Doc = this.listadocumentos.get(IdDoc);
+
+        if(!(this.usuariologueado.equals(Doc.getOwnerdocumento()) || Doc.verificaracceso(this.usuariologueado, "W"))){
+            System.out.print("No eres propietario del documento o no posees los permisos necesarios para compartir este documento\n");
+            return false;
+        }
+
+        Doc.setcontenido(Doc.getcontenido() + texto);
+        Doc.getlistaversiones().add(new version(Doc.getcontenido(), Doc.getlistaversiones().size()));
+        this.listadocumentos.set(IdDoc, Doc);
+        return true;
+    }
+
+    public boolean rollback(int IdDoc, int IdVersion){
+        if(IdDoc > this.getlistadocumentos().size() - 1){
+            System.out.print("No existe el documento especificado\n");
+            return false;
+        }
+
+        documento Doc = this.listadocumentos.get(IdDoc);
+
+        if(IdVersion > Doc.getlistaversiones().size() - 1) {
+            System.out.print("No existe la version especificada\n");
+            return false;
+        }
+
+        ArrayList<version> Versionesdoc = Doc.getlistaversiones();
+
+        version Ver = Versionesdoc.get(IdVersion);
+
+        Doc.getlistaversiones().add(Ver);
+
         this.listadocumentos.set(IdDoc, Doc);
         return true;
     }

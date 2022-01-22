@@ -20,6 +20,7 @@ public class documento {
         this.fechacreacion = LocalDate.now();
         this.DocId = ContadorIDdoc++;
         this.contenido = contenido;
+        this.listaversiones.add(new version(contenido, 0));
     }
 
     public documento(String titulo, String contenido, String ownerdoc){
