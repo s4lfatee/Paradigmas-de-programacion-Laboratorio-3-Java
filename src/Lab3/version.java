@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class version {
+    private int idversion;
     private String contenido;
     private LocalDate fechaversion;
-    private int idversion;
+    private static int ContadorID = 0;
     
     public version(String contenido, int idversion){
+        this.idversion = ContadorID++;
         this.contenido = contenido;
         this.fechaversion = LocalDate.now();
-        this.idversion = idversion;
+
     }
     
     public String getcontenido(){
@@ -25,12 +27,10 @@ public class version {
     public int getidversion(){
         return this.idversion;
     }
-    
+
     public String ToString(){
-        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return String.format("version %d, contenido: %s, creacion: %s \n",
-                this.getidversion(), 
-                this.getcontenido(),
-                formatofecha.format(this.getfechaversion()));
+        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        return "Version numero: " + this.idversion + "\n" + "Fecha de version: " + this.fechaversion.format(formatofecha)
+                + "\n" + "Contenido de la version: " + this.contenido;
     }
 }

@@ -2,14 +2,15 @@ package Lab3;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class documento {
+    private int DocId;
     private String titulo;
     private LocalDate fechacreacion;
     private String contenido = "";
     private String ownerdocumento;
-    private static int ContadorIDdoc = 0; 
-    private int DocId;
+    private static int ContadorIDdoc = 0;
     private LocalDate fechamodificacion;
     private ArrayList<version> listaversiones = new ArrayList<>();
     private ArrayList<acceso> listacceso = new ArrayList<>();
@@ -20,7 +21,28 @@ public class documento {
         this.DocId = ContadorIDdoc++;
         this.contenido = contenido;
     }
-    
+
+    public documento(String titulo, String contenido, String ownerdoc){
+        this.titulo = titulo;
+        this.fechacreacion = LocalDate.now();
+        this.DocId = ContadorIDdoc++;
+        this.contenido = contenido;
+        this.ownerdocumento = ownerdoc;
+    }
+
+    public void setListacceso(ArrayList<acceso> listacceso) {
+        this.listacceso = listacceso;
+    }
+
+    public boolean verificaracceso(String usuario, String permiso){
+         for(int i = 0; i < listacceso.size() ; i++){
+             if(listacceso.get(i).getusernameaccess().equals(usuario) && listacceso.get(i).getaccesses().equals(permiso)){
+                 return true;
+             }
+         }
+         return false;
+    }
+
     public String gettitulo(){
         return this.titulo;
     }
@@ -36,12 +58,16 @@ public class documento {
     public int getid(){
         return this.DocId;
     }
+
+    public String getOwnerdocumento(){
+        return this.ownerdocumento;
+    }
     
-    public ArrayList<version> getlistaversiones(){
+    public ArrayList getlistaversiones(){
         return this.listaversiones;
     }
     
-    public ArrayList<acceso> getlistaaccessos(){
+    public ArrayList getlistaaccessos(){
         return this.listacceso;
     }
     
@@ -51,29 +77,5 @@ public class documento {
 
     public void setowner(String username){
         this.ownerdocumento = username;
-    }
-    
-    public String ToString(){
-        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        ArrayList<String> stringsversion = new ArrayList<>();
-        ArrayList<String> stringsacceso = new ArrayList<>();
-        
-        for (int i = 0; i < listaversiones.size(); i++){
-            stringsversion.add(this.listaversiones.get(i).ToString());
-        }
-        
-        for (int i = 0; i < listacceso.size(); i++){
-            stringsacceso.add(this.listacceso.get(i).ToString());
-        }
-        
-        String allaccesostostring = String.join(" -- ", stringsacceso);
-        String allversiontostring = String.join(" -- ", stringsversion);
-   
-        return "Nombre del documento: " + this.titulo + "\n" + "Fecha de creacion: " 
-                + this.fechacreacion.toString() + "\n" + "Contenido del documento: " 
-                + this.contenido + "\n" + "ID del documento: " + this.DocId 
-                + "\n" + "Lista de accesos: " + allaccesostostring 
-                + "\n" + "Lista de versiones: " 
-                + allversiontostring;
     }
 }

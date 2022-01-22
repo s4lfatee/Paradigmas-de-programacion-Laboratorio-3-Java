@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class usuario {
+    private int userID;
     private String username;
     private String password;
     private LocalDate registerdate;
-    private int userID;
     private static int ContadorID = 0;
     
     
@@ -34,11 +34,11 @@ public class usuario {
     public int getId(){
         return this.userID;
     }
-    
+
     public String ToString(){
-        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        return "Nombre de usuario: " + this.username + " " + 
-                "Contrasenha: " + this.password + " " + "Fecha de registro: " 
-                + this.registerdate.toString();
+            DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            return "Nombre de usuario: " + this.username + "\n" +
+                    "Contrasenha: " + this.password + "\n" + "Fecha de registro: "
+                    + this.registerdate.format(formatofecha);
     }
 }

@@ -1,6 +1,9 @@
 package Lab3;
+import java.lang.reflect.Array;
 import java.util.Scanner;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 
 public class UserInterface {
     static Scanner input = new Scanner(System.in);
@@ -29,7 +32,19 @@ public class UserInterface {
                         inputstring.next();
                         break;
                     case 2:
-                        System.out.print("FUNCIONA!!!!!!!!!!!!!!!!!!!!!\n");
+                        System.out.print("Compartir documento\n");
+                        System.out.print("Ingresar el id del documento a compartir: ");
+                        int idDoc = input.nextInt();
+                        System.out.print("\nIngresar los usuarios para compartir (Separar con comas y un espacio, " +
+                                "como ejemplo considerar lo siguiente: 'Usuario1, Usuario2, Usuario3': ");
+                        String usuarios = inputstring.next();
+                        ArrayList<String> listausuarios = new ArrayList<String>(Arrays.asList(usuarios.split(", ")));
+                        System.out.print("\nIngresar el permiso a conceder, tenga en consideración que los " +
+                                        "permisos admitidos corresponden a C (comentar), W (escribir) y R (leer): ");
+                        String permiso = inputstring.next();
+                        if(plataforma.share(listausuarios, idDoc, permiso)){
+                            System.out.print("Permiso otorgado con exito\n");
+                        }
                         System.out.print("Presione ENTER para continuar\n");
                         inputstring.next();
                         break;

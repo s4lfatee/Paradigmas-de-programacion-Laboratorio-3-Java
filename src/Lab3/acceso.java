@@ -1,23 +1,27 @@
 package Lab3;
 
 public class acceso {
-    private String username;
-    private String acceso;
+    private String usernameaccess;
+    private String permiso;
     
-    public acceso(String username){
-        this.username = username;
+    public acceso(String username, String permiso){
+        this.usernameaccess = username;
+        this.permiso = permiso;
     }
     
-    public String getusername(){
-        return this.username;
+    public String getusernameaccess(){
+        return this.usernameaccess;
     }
     
     public String getaccesses(){
-        return this.acceso;
+        return this.permiso;
     }
- 
+
+    public void setPermiso(String permiso){
+        this.permiso = permiso;
+    }
+
     public String ToString(){
-        return "Nombre de usuario: " + this.username + " " + "Tipo de acceso: " 
-                + this.acceso + "\n";
+        return "El usuario " + this.usernameaccess + "posee el permiso " + this.permiso;
     }
 }
