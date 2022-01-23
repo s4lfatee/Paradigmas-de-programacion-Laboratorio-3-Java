@@ -199,4 +199,45 @@ public class paradigmaDocs {
         this.listadocumentos.set(IdDoc, Doc);
         return true;
     }
+
+    public boolean revokeAccess(int IdDoc){
+        if(IdDoc > this.getlistadocumentos().size() - 1){
+            System.out.print("No existe el documento especificado\n");
+            return false;
+        }
+
+        documento Doc = this.listadocumentos.get(IdDoc);
+
+        if(!this.usuariologueado.equals(Doc.getOwnerdocumento())){
+            System.out.print("No eres propietario de este documento\n");
+            return false;
+        }
+
+        Doc.getlistaaccessos().clear();
+        this.listadocumentos.set(IdDoc, Doc);
+        return true;
+    }
+
+    public String search(String texto){
+        ArrayList<String> docsencontrados = new ArrayList<>();
+
+        for(int i = 0; i < this.listadocumentos.size(); i++){
+            if(this.listadocumentos.get(i).getcontenido().contains(texto)){
+                if(this.listadocumentos.get(i).getOwnerdocumento().equals(this.usuariologueado)){
+                    docsencontrados.add(this.listadocumentos.get(i).gettitulo());
+                }
+                else if(this.listadocumentos.get(i).getusernamesaccesos().contains(this.usuariologueado)){
+                    docsencontrados.add(this.listadocumentos.get(i).gettitulo());
+                }
+                else{
+                    return "No se encontraron coincidencias";
+                }
+            }
+            else{
+                return "No se encontraron coincidencias";
+            }
+        }
+        String docs = String.join(", ", docsencontrados);
+        return "Los documentos encontrados son (En forma de titulos): " + docs;
+    }
 }

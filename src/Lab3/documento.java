@@ -1,4 +1,5 @@
 package Lab3;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -70,6 +71,14 @@ public class documento {
     
     public ArrayList getlistaaccessos(){
         return this.listacceso;
+    }
+
+    public ArrayList getusernamesaccesos(){
+        ArrayList<String> listausernames = new ArrayList<>();
+        for(int i = 0; i < listacceso.size() ; i++){
+            listausernames.add(listacceso.get(i).getusernameaccess());
+        }
+        return listausernames;
     }
     
     public void setcontenido(String contenido){

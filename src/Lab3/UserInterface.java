@@ -72,6 +72,24 @@ public class UserInterface {
                         System.out.print("Presione ENTER para continuar\n");
                         inputstring.next();
                         break;
+                    case 5:
+                        System.out.print("Revocar accesos a un documento\n");
+                        System.out.print("Ingresar el id del documento: ");
+                        idDoc = input.nextInt();
+                        if(plataforma.revokeAccess(idDoc)){
+                            System.out.print("Accesos revocados con exito");
+                        }
+                        System.out.print("Presione ENTER para continuar\n");
+                        inputstring.next();
+                        break;
+                    case 6:
+                        System.out.print("Buscar texto en los documentos\n");
+                        System.out.print("Ingrese texto a buscar: ");
+                        String texto = inputstring.next();
+                        System.out.print(plataforma.search(texto));
+                        System.out.print("Presione ENTER para continuar\n");
+                        inputstring.next();
+                        break;
                 }
             }while(opcion != 10 && opcion != 0);
         }while(opcion != 0);
@@ -139,7 +157,8 @@ public class UserInterface {
         System.out.print("2. Compartir documento\n");
         System.out.print("3. Agregar contenido a un documento\n");
         System.out.print("4. Restaurar versión de un documento\n");
-        System.out.print("5. Revocar acceso a un documento\n");
+        System.out.print("5. Revocar accesos a un documento\n");
+        System.out.print("6. Buscar en los documentos\n");
         System.out.print("10. Cerrar sesion\n");
         System.out.print("0. Cerrar programa\n");
         System.out.print("INTRODUZCA SU OPCION: ");
