@@ -1,8 +1,11 @@
 package Lab3;
 
+import Documento.*;
+import User.*;
+
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 /**
  * Clase que define el objeto editor, el cual posee todos los métodos
@@ -17,8 +20,8 @@ public class Editor {
     private LocalDate fechaplataforma;
     private ArrayList<Usuario> listausers = new ArrayList<>();
     private ArrayList<Documento> listadocumentos = new ArrayList<>();
-    private String usuariologueado;
-    private ArrayList<String> permisosvalidos = new ArrayList<>(Arrays.asList("C", "R", "W"));
+    private String usuariologueado = "";
+    private ArrayList<String> permisosvalidos = new ArrayList<>();
 
     // Constructor
 
@@ -44,12 +47,15 @@ public class Editor {
         this.listadocumentos.add(new Documento("kajkakaj", "minecraft fue desarrollado en java", "genericuser"));
         this.listadocumentos.add(new Documento("falta poco", "El lenguaje de programación Java fue desarrollado originalmente por James Gosling", "useer"));
         this.listadocumentos.add(new Documento("casi", "me gusta mucho jugar yugioh", "quintouser"));
+        this.permisosvalidos.add("C");
+        this.permisosvalidos.add("W");
+        this.permisosvalidos.add("R");
     }
 
     // Getters
 
     /**
-     *
+     * Método que obtiene el nombre de la plataforma
      * @return Nombre de la plataforma
      */
     public String getnombreplataforma(){
@@ -57,50 +63,20 @@ public class Editor {
     }
 
     /**
-     *
-     * @return Fecha de creación de la plataforma
-     */
-    public LocalDate getfechaplataforma(){
-        return this.fechaplataforma;
-    }
-
-    /**
-     *
-     * @return Lista de usuarios registrados en la plataforma
-     */
-    public ArrayList getlistausers(){
-        return this.listausers;
-    }
-
-    /**
-     *
-     * @return Permisos válidos de acceso de la plataforma
-     */
-    public ArrayList getpermisosvalidos(){
-        return this.permisosvalidos;
-    }
-
-    /**
-     *
+     * Método que obtiene la lista de documentos creados en la plataforma
      * @return Lista de documentos creados en la plataforma
      */
     public ArrayList getlistadocumentos(){
         return this.listadocumentos;
     }
 
-    /**
-     *
-     * @return Usuario logueado en la plataforma
-     */
-    public String getusuariologueado(){
-        return this.usuariologueado;
-    }
 
     /**
-     *
+     * Método que obtiene todos los nombres de usuario de los usuarios registrados en
+     * la plataforma
      * @return Una lista de todos los nombres de usuarios
      */
-    public ArrayList getusernames(){
+    public ArrayList<String> getusernames(){
         ArrayList<String> usernames = new ArrayList<>();
 
         for(int i = 0; i < this.listausers.size(); i++){
@@ -112,7 +88,7 @@ public class Editor {
     // Setters
 
     /**
-     *
+     * Método que obtiene el usuario que inició sesión
      * @param username Username del nuevo usuario logueado
      */
     public void setusuariologueado(String username){
@@ -123,7 +99,7 @@ public class Editor {
 
 
     /**
-     *
+     * Método que registra a un usuario en la plataforma
      * @param username Nombre de usuario a registrar
      * @param password Contraseña de usuario a registrar
      * @return Valor booleano dependiendo si el registro fue éxitoso o no
@@ -144,7 +120,7 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que verifica la información de un usuario e inicia su sesión
      * @param username Nombre de usuario para loguear
      * @param password Contraseña de usuario para loguear
      * @return Valor booleano dependiendo si el inicio de sesión fue éxitoso o no
@@ -161,7 +137,14 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que cierra la sesión de un usuario
+     */
+    public void logout(){
+        this.usuariologueado = "";
+    }
+
+    /**
+     * Método que crea un nuevo documento en la plataforma
      * @param nombredoc Titulo del documento a crear
      * @param contenido Contenido del documento a crear
      */
@@ -172,7 +155,7 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que logra que un usuario pueda compartir un documento
      * @param listadeusuarios Lista de usuarios ingresada para compartir un documento
      * @param IdDoc Id del documento donde se aplicará la creación o actualización de permisos
      * @param permiso Permiso el cual es concedido a cada uno de los usuarios ingresados
@@ -191,26 +174,22 @@ public class Editor {
             return false;
         }
 
-        if(!this.getpermisosvalidos().contains(permiso)){
+        if(!this.permisosvalidos.contains(permiso)){
             System.out.print("El permiso ingresado no es valido\n");
             return false;
         }
 
         for (int i = 0; i < listadeusuarios.size(); i++){
             if(listadeusuarios.get(i).equals(Doc.getOwnerdocumento())){
-                System.out.print("Uno de los usuarios ingresados corresponde al propietario del documento, intente de nuevo");
+                System.out.print("Uno de los usuarios ingresados corresponde al " +
+                        "propietario del documento, intente de nuevo\n");
                 return false;
             }
         }
 
-        for (int i = 0; i < listadeusuarios.size(); i++){
-            if(this.getusernames().contains(listadeusuarios.get(i))){
-                ;
-            }
-            else{
-                System.out.print("Uno o mas usuarios ingresados no existen\n");
-                return false;
-            }
+        if(!(this.getusernames().containsAll(listadeusuarios))){
+            System.out.print("Uno o mas usuarios ingresados no existen\n");
+            return false;
         }
 
         ArrayList<Acceso> accesosdoc = Doc.getlistaaccessos();
@@ -233,7 +212,7 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que permite agregar contenido a un documento
      * @param IdDoc Id del documento donde se modificará el contenido
      * @param texto Contenido que se agregará al contenido del documento
      * @return Valor booleano
@@ -258,7 +237,7 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que restaura una versión antigua de un documento
      * @param IdDoc Id del documento se realizará la restauración de versión
      * @param IdVersion Id de la versión a restaurar
      * @return Valor booleano dependiendo si la restauración fue éxitosa o no
@@ -280,16 +259,18 @@ public class Editor {
 
         Version Ver = Versionesdoc.get(IdVersion);
 
-        Doc.getlistaversiones().add(Ver);
+        this.listadocumentos.get(IdDoc).getlistaversiones().add(new Version(Ver.getcontenido(),
+                Doc.getlistaversiones().size()));
 
+        this.listadocumentos.get(IdDoc).setcontenido(Ver.getcontenido());
         this.listadocumentos.set(IdDoc, Doc);
         return true;
     }
 
     /**
-     *
+     * Método que revoca todos los accesos de un documento
      * @param IdDoc Id del documento donde se realizará la revocación de permisos
-     * @return
+     * @return Valor booleano dependiendo si la revocación fue éxitosa o no
      */
     public boolean revokeAccess(int IdDoc){
         if(IdDoc > this.getlistadocumentos().size() - 1){
@@ -310,7 +291,7 @@ public class Editor {
     }
 
     /**
-     *
+     * Método que muestra los documentos que coincidan con la busqueda de un texto
      * @param texto Texto a buscar en la lista de documentos
      * @return String que indica cuales documentos han sido encontrados
      */
@@ -320,17 +301,62 @@ public class Editor {
         for(int i = 0; i < this.listadocumentos.size(); i++){
             if(this.listadocumentos.get(i).getcontenido().contains(texto)){
                 if(this.listadocumentos.get(i).getOwnerdocumento().equals(this.usuariologueado)){
-                    docsencontrados.add(this.listadocumentos.get(i).gettitulo());
+                    docsencontrados.add(this.listadocumentos.get(i).ToString());
                 }
                 else if(this.listadocumentos.get(i).getusernamesaccesos().contains(this.usuariologueado)){
-                    docsencontrados.add(this.listadocumentos.get(i).gettitulo());
-                }
-                else{
-                    ;
+                    docsencontrados.add(this.listadocumentos.get(i).ToString());
                 }
             }
         }
-        String docs = String.join(", ", docsencontrados);
-        return "Los documentos encontrados son (En forma de titulos): " + docs;
+        String docs = String.join(" \n----------\n ", docsencontrados);
+        return "Los documentos encontrados son: \n" + docs;
+    }
+
+    /**
+     * Método que genera un String de toda la información de la plataforma
+     * @return Toda la información de la plataforma contenida en un String
+     */
+    public String EditorToString(){
+        DateTimeFormatter formatofecha = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        ArrayList<String> usuariosdoc = new ArrayList<>();
+        ArrayList<String> documentosdoc = new ArrayList<>();
+
+        if(!this.usuariologueado.equals("")){
+            for(int i = 0; i < this.listausers.size(); i++){
+                if(this.listausers.get(i).getusername().equals(this.usuariologueado)) {
+                    usuariosdoc.add(this.listausers.get(i).ToString());
+                }
+            }
+
+            for(int i = 0; i < this.listadocumentos.size(); i++){
+                if(this.listadocumentos.get(i).getusernamesaccesos().contains(this.usuariologueado) ||
+                        this.listadocumentos.get(i).getOwnerdocumento().equals(this.usuariologueado)){
+                    documentosdoc.add(this.listadocumentos.get(i).ToString());
+                }
+            }
+
+            String usuariosdocstring = String.join("\n----------\n", usuariosdoc);
+            String documentosdocstring = String.join("\n----------\n", documentosdoc);
+
+            return "Nombre de la plataforma: " + this.nombreplataforma + "\n" + "Fecha de creacion de la plataforma: " +
+                    this.fechaplataforma.format(formatofecha) + "\n" + "Usuarios registrados: \n" + usuariosdocstring + "\n"
+                    + "\n" + "Documentos de la plataforma: \n" + documentosdocstring;
+        }
+
+        for(int i = 0; i < this.listadocumentos.size(); i++){
+            documentosdoc.add(this.listadocumentos.get(i).ToStringLoggedOff());
+        }
+
+        String documentosdocstring = String.join(" \n----------\n", documentosdoc);
+
+        return "Nombre de la plataforma: " + this.nombreplataforma + "\n" + "Fecha de creacion de la plataforma: " +
+                "\n" + this.fechaplataforma.format(formatofecha) + "\n" + "Documentos de la plataforma: " + "\n\n" + documentosdocstring;
+    }
+
+    /**
+     * Método que imprime el String generado por EditorToString()
+     */
+    public void PrintEditor(){
+        System.out.print(this.EditorToString());
     }
 }

@@ -1,5 +1,7 @@
 @echo off
 
-del *.class
 javac Lab3/*.java
+javac Documento/*.java
+javac UI/*.java
+javac User/*.java
 java Lab3/Main
