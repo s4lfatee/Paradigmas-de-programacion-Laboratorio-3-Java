@@ -299,12 +299,19 @@ public class Editor {
         ArrayList<String> docsencontrados = new ArrayList<>();
 
         for(int i = 0; i < this.listadocumentos.size(); i++){
-            if(this.listadocumentos.get(i).getcontenido().contains(texto)){
-                if(this.listadocumentos.get(i).getOwnerdocumento().equals(this.usuariologueado)){
+            boolean encontrado = false;
+            if(this.listadocumentos.get(i).getOwnerdocumento().equals(this.usuariologueado) || this.listadocumentos.get(i).getusernamesaccesos().contains(this.usuariologueado)){
+                if(this.listadocumentos.get(i).getcontenido().contains(texto)){
                     docsencontrados.add(this.listadocumentos.get(i).ToString());
+                    encontrado = true;
                 }
-                else if(this.listadocumentos.get(i).getusernamesaccesos().contains(this.usuariologueado)){
-                    docsencontrados.add(this.listadocumentos.get(i).ToString());
+                int j = 0;
+                while(!encontrado && j < this.listadocumentos.get(i).getlistaversiones().size()){
+                    if(this.listadocumentos.get(i).getlistaversiones().get(j).getcontenido().contains(texto)){
+                        docsencontrados.add(this.listadocumentos.get(i).ToString());
+                        encontrado = true;
+                    }
+                    j++;
                 }
             }
         }

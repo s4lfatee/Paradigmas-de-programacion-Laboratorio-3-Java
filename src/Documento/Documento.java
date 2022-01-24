@@ -81,7 +81,7 @@ public class Documento {
      *
      * @return Lista de versiones de un documento
      */
-    public ArrayList getlistaversiones() {
+    public ArrayList<Version> getlistaversiones() {
         return this.listaversiones;
     }
 

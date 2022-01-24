@@ -32,7 +32,7 @@ public class UserInterface {
 
                 switch(opcion){
                     case 1:
-                        System.out.print("Creación de documento\n");
+                        System.out.print("Creacion de documento\n");
                         System.out.print("Ingresar titulo del documento: ");
                         String titulo = inputstring.next();
                         System.out.print("\nIngresar contenido del documento: ");
@@ -65,18 +65,18 @@ public class UserInterface {
                         System.out.print("\nIngresar el texto a agregar: ");
                         contenido = inputstring.next();
                         if(plataforma.add(idDoc, contenido)){
-                            System.out.print("Contenido agregado con exito");
+                            System.out.print("Contenido agregado con exito\n");
                         }
                         PresionarEnter();
                         break;
                     case 4:
-                        System.out.print("Restaurar versión de un documento\n");
+                        System.out.print("Restaurar versióo de un documento\n");
                         System.out.print("Ingresar el id del documento: ");
                         idDoc = input.nextInt();
                         System.out.print("\nIngresar el id de la version a restaurar: ");
                         int IdVer = input.nextInt();
                         if(plataforma.rollback(idDoc, IdVer)){
-                            System.out.print("Version restaurada con exito");
+                            System.out.print("Version restaurada con exito\n");
                         }
                         PresionarEnter();
                         break;
@@ -85,19 +85,19 @@ public class UserInterface {
                         System.out.print("Ingresar el id del documento: ");
                         idDoc = input.nextInt();
                         if(plataforma.revokeAccess(idDoc)){
-                            System.out.print("Accesos revocados con exito");
+                            System.out.print("Accesos revocados con exito\n");
                         }
                         PresionarEnter();
                         break;
                     case 6:
                         System.out.print("Buscar texto en los documentos\n");
                         System.out.print("Ingrese texto a buscar: ");
-                        String texto = inputstring.next();
+                        String texto = inputstring.nextLine();
                         System.out.print(plataforma.search(texto));
                         PresionarEnter();
                         break;
                     case 7:
-                        System.out.print("Vizualizar documentos\n");
+                        System.out.print("Visualizar documentos\n");
                         plataforma.PrintEditor();
                         PresionarEnter();
                         break;
@@ -190,7 +190,7 @@ public class UserInterface {
         System.out.print("1. Crear nuevo documento\n");
         System.out.print("2. Compartir documento\n");
         System.out.print("3. Agregar contenido a un documento\n");
-        System.out.print("4. Restaurar versión de un documento\n");
+        System.out.print("4. Restaurar version de un documento\n");
         System.out.print("5. Revocar accesos a un documento\n");
         System.out.print("6. Buscar en los documentos\n");
         System.out.print("7. Visualizar plataforma\n");
