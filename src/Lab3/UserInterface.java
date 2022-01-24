@@ -1,15 +1,26 @@
 package Lab3;
-import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
 
+/**
+ * Clase que define la interfaz visual de la plataforma
+ * es decir, posee una vista de menú el cual es interactivo,
+ * con la capabilidad de ejecutar varias funcionalidades de la plataforma
+ * junto con retroalimentación de las funcionalidades.
+ * @author Francisco Salfate Garcés
+ */
 public class UserInterface {
+    // Atributos
     static Scanner input = new Scanner(System.in);
 
+    // Otros métodos
+
+    /**
+     * Método que ejecuta las funcionalidades mostradas en el menú
+     */
     public static void inicio(){
-        paradigmaDocs plataforma = new paradigmaDocs("gdocs");
+        Editor plataforma = new Editor("gdocs");
         Integer opcion = 1;
 
         do{
@@ -90,12 +101,20 @@ public class UserInterface {
                         System.out.print("Presione ENTER para continuar\n");
                         inputstring.next();
                         break;
+                    case 7:
+                        System.out.print("Vizualizar documentos\n");
+
                 }
             }while(opcion != 10 && opcion != 0);
         }while(opcion != 0);
     }
 
-    public static boolean authentication(paradigmaDocs plataforma){
+    /**
+     * Método que muestra y ejecuta el menú de registro o inicio de sesión de la plataforma
+     * @param plataforma Plataforma a la cual se desea ingresar
+     * @return Valor booleano dependiendo si el registro o inicio de sesión fue éxitoso
+     */
+    public static boolean authentication(Editor plataforma){
         String username;
         String password;
         boolean estadosesion = false;
@@ -150,6 +169,10 @@ public class UserInterface {
         return true;
     }
 
+    /**
+     * Método que muestra el menú de funcionalidades de la plataforma
+     * @return
+     */
     public static int menu(){
         System.out.print("Editor\n");
         System.out.print("Escoja su opción:\n");
