@@ -45,7 +45,7 @@ public class Editor {
         this.listadocumentos.add(new Documento("la verdad es que", "rellenar estos documentos no es muy divertido", "lmao"));
         this.listadocumentos.add(new Documento("pero tengo que hacerlo", "porque es requerido", "lmao"));
         this.listadocumentos.add(new Documento("kajkakaj", "minecraft fue desarrollado en java", "genericuser"));
-        this.listadocumentos.add(new Documento("falta poco", "El lenguaje de programación Java fue desarrollado originalmente por James Gosling", "useer"));
+        this.listadocumentos.add(new Documento("falta poco", "El lenguaje de programacion Java fue desarrollado originalmente por James Gosling", "useer"));
         this.listadocumentos.add(new Documento("casi", "me gusta mucho jugar yugioh", "quintouser"));
         this.permisosvalidos.add("C");
         this.permisosvalidos.add("W");
@@ -339,7 +339,7 @@ public class Editor {
             String documentosdocstring = String.join("\n----------\n", documentosdoc);
 
             return "Nombre de la plataforma: " + this.nombreplataforma + "\n" + "Fecha de creacion de la plataforma: " +
-                    this.fechaplataforma.format(formatofecha) + "\n" + "Usuarios registrados: \n" + usuariosdocstring + "\n"
+                    this.fechaplataforma.format(formatofecha) + "\n\n" + "Informacion de usuario : \n" + usuariosdocstring + "\n"
                     + "\n" + "Documentos de la plataforma: \n" + documentosdocstring;
         }
 
