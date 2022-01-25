@@ -19,7 +19,6 @@ public class Documento {
     private String contenido = "";
     private String ownerdocumento;
     private static int ContadorIDdoc = 0;
-    private LocalDate fechamodificacion;
     private ArrayList<Version> listaversiones = new ArrayList<>();
     private ArrayList<Acceso> listacceso = new ArrayList<>();
 
